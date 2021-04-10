@@ -4,6 +4,7 @@ import pysam
 from Bio import SeqIO
 from Bio.Seq import Seq
 
+
 def fasta_length(infile, outfile):
     fasta = (
         SeqIO.parse(infile, "fasta")
@@ -15,9 +16,7 @@ def fasta_length(infile, outfile):
 
 
 def fastq_length(infile, outfile):
-    seqfile = (
-        open(infile) if infile.endswith((".fq", ".fastq")) else gzip.open(infile)
-    )
+    seqfile = open(infile) if infile.endswith((".fq", ".fastq")) else gzip.open(infile)
     for i, j in enumerate(seqfile):
         k = i % 4
         if k == 0:  ## header
@@ -27,7 +26,7 @@ def fastq_length(infile, outfile):
         elif k == 2:
             continue  ## plus
         elif k == 3:  ## quality
-            outfile.write("{}\t{}\n".format(seq_id, seq_len))    
+            outfile.write("{}\t{}\n".format(seq_id, seq_len))
 
 
 def seq_length(infile, outfile):

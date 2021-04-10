@@ -4,6 +4,7 @@ from Bio import SeqIO
 
 
 def length_list(infile):
+    print(infile)
     lst = []
     if infile.endswith((".fa", ".fa.gz", ".fasta")):
         fasta = (
@@ -48,10 +49,10 @@ def seq_statistics(infile, outfile):
     mean_length = total / count
     n50 = calculate_n50(sorted(lst, reverse=True))
     ## return
-    outfile.write("infile: {}".format(infile))
-    outfile.write("number_of_seuqences: {}".format(count))
-    outfile.write("N50: {}".format(n50))
-    outfile.write("min_length: {}".format(min_length))
-    outfile.write("mean_length: {}".format(mean_length))
-    outfile.write("max_length: {}".format(max_length))
-    outfile.write("total (bp): {}".format(total))
+    outfile.write("infile: {}\n".format(infile))
+    outfile.write("number_of_seuqences: {}\n".format(count))
+    outfile.write("N50: {}\n".format(n50))
+    outfile.write("min_length: {}\n".format(min_length))
+    outfile.write("mean_length: {}\n".format(mean_length))
+    outfile.write("max_length: {}\n".format(max_length))
+    outfile.write("total (bp): {}\n\n".format(total))
