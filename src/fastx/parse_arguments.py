@@ -21,7 +21,30 @@ def parse_args(program_version, arguments=sys.argv[1:]):
     ## subcommands
     subparsers = parser.add_subparsers(help="fastx subcommands", dest="sub")
 
-    ## subcommands: statistics
+    ## subcommands: sort
+    parser_statistics = subparsers.add_parser(
+        "sort",
+        help="returns sorted sequences",
+    )
+    parser_statistics.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
+        Programs supports the following prefixes: \
+        FASTA: .fa, .fasta, .fa.gz \
+        FASTQ: .fq, .fastq, .fq.gz",
+    )
+    parser_statistics.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=argparse.FileType("w"),
+        help="FILE to return sorted sequences",
+    )
+
+    ## subcommands: sequence statistics
     parser_statistics = subparsers.add_parser(
         "stat",
         help="reads returns sequence statistics",
@@ -41,7 +64,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         "--output",
         required=True,
         type=argparse.FileType("w"),
-        help="FILE to return .length file(s)",
+        help="FILE to return .stat file(s)",
     )
 
     ## subcommands: split

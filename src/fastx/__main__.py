@@ -8,6 +8,7 @@ __author__ = "Sangjin Lee"
 import os
 import sys
 import logging
+from fastx.sort import seq_sort
 from fastx.split import seq_split
 from fastx.length import seq_length
 from fastx.statistics import seq_statistics
@@ -19,11 +20,13 @@ def main():
         logging.warning("Sequence file is missing")
 
     if options.input.endswith((".fa", ".fq", ".fasta", ".fastq", ".fa.gz", "fq.gz", ".fofn")):
-        if options.sub == "stat": ## sequence statisics
+        if options.sub == "stat": ## returns sequence statisics
             seq_statistics(options.input, options.output)
-        elif options.sub == "split": ## sequence statisics
+        elif options.sub == "sort": ## sort sequences
+            seq_sort(options.input, options.output)
+        elif options.sub == "split": ## split and return sequences
             seq_split(options.input, options.directory)
-        elif options.sub == "length": ## sequence length
+        elif options.sub == "length": ## return sequence id and length
             seq_length(options.input, options.output)
     else:
         logging.warning("fastx does not support the input file yet")
