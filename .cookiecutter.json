@@ -1,0 +1,10 @@
+{
+  "_template": "gh:cjolowicz/cookiecutter-hypermodern-python",
+  "author": "Sangjin Lee",
+  "email": "sl17@sanger.ac.uk",
+  "friendly_name": "fastx",
+  "github_user": "Sangjin",
+  "package_name": "fastx",
+  "project_name": "fastx",
+  "version": "0.0.1"
+}
