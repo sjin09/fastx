@@ -2,53 +2,34 @@
 import os
 import gzip
 from Bio import SeqIO
-from Bio.Seq import Seq
 
 
-def fasta_split(infile, outdir):
+def seq_gaps(infile, outfile):
     fasta = (
         SeqIO.parse(infile, "fasta")
         if infile.endswith((".fa", ".fasta"))
         else SeqIO.parse(gzip.open(infile, "rt"), "fasta")
     )
+    status = 0
     for seq in fasta:
-        outfile = open(
-            os.path.join(outdir, "{}.fa".format(seq.id.replace("/", "_"))), "w"
-        )
-        outfile.write(">{}\n".format(seq.id))
-        for chunk in chunkstring(seq.seq, 50):
-            outfile.write("{}\n".format(chunk))
-        outfile.close()
+        seq_len = len(seq.seq) - 1
+        for i, j in enumerate(seq.seq):
+            if status == 0:
+                if j == "N":
+                    start = i
+                    status = 1
+                else:
+                    status = 0
+            elif status == 1:
+                if j == "N":
+                    if i != seq_len:
+                        status = 1
+                    elif i == seq_len:
+                        status = 0
+                        end = i + 1
+                        outfile.write("{}\t{}\t{}\n".format(seq.id, start, end))
+                else:
+                    end = i
+                    status = 0
+                    outfile.write("{}\t{}\t{}\n".format(seq.id, start, end))
 
-
-def fastq_split(infile, outdir):
-    seqfile = open(infile) if infile.endswith((".fq", ".fastq")) else gzip.open(infile)
-    for i, j in enumerate(seqfile):
-        k = i % 4
-        if k == 0:  ## header
-            seq_id = j.strip()
-            outfile = open(
-                os.path.join(
-                    outdir, "{}.fq".format(seq_id.replace("@", "").replace("/", "_"))
-                ),
-                "w",
-            )
-        elif k == 1:  ## sequence
-            seq = j.strip()
-            seq_len = len(seq)
-        elif k == 2:
-            continue  ## plus
-        elif k == 3:  ## quality
-            seq_bq = j.strip()
-            outfile.write("{}\n{}\n+\n{}\n".format(seq_id, seq, seq_bq))
-            outfile.close()
-
-
-def seq_split(infile, outdir):
-    outdir = os.path.abspath(outdir)
-    if not os.path.exists(outdir):
-        os.mkdir(outdir)
-    if infile.endswith((".fa", ".fa.gz", ".fasta")):
-        fasta_split(infile, outdir)
-    elif infile.endswith((".fq", ".fq.gz", ".fastq")):
-        fastq_split(infile, outdir)

@@ -21,7 +21,28 @@ def parse_args(program_version, arguments=sys.argv[1:]):
     ## subcommands
     subparsers = parser.add_subparsers(dest="sub")
 
-    ## subcommands
+    parser_head = subparsers.add_parser(
+        "gap",
+        help="returns a BED file with gap positions",
+    )
+    parser_head.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTA, or gzipped FASTA \
+        Programs supports the following prefixes: \
+        FASTA: .fa, .fasta, .fa.gz"
+    )
+    parser_head.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=argparse.FileType("w"),
+        help="BED file to return the sequences",
+    )
+
+    ## subcommands: head
     parser_head = subparsers.add_parser(
         "head",
         help="returns the first n lines of sequences",

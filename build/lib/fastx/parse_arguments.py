@@ -21,7 +21,28 @@ def parse_args(program_version, arguments=sys.argv[1:]):
     ## subcommands
     subparsers = parser.add_subparsers(dest="sub")
 
-    ## subcommands
+    parser_head = subparsers.add_parser(
+        "gap",
+        help="returns a BED file with gap positions",
+    )
+    parser_head.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTA, or gzipped FASTA \
+        Programs supports the following prefixes: \
+        FASTA: .fa, .fasta, .fa.gz"
+    )
+    parser_head.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=argparse.FileType("w"),
+        help="BED file to return the sequences",
+    )
+
+    ## subcommands: head
     parser_head = subparsers.add_parser(
         "head",
         help="returns the first n lines of sequences",
@@ -144,6 +165,28 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         type=argparse.FileType("w"),
         help="FILE to return .length file(s)",
     )
+    ## subcommand: fasta2fastq
+    parser_length = subparsers.add_parser(
+        "fastqc",
+        help="sequence quality control",
+    )
+    parser_length.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTQ or gzipped FASTQ \
+        Programs supports the following prefixes: \
+        FASTQ: .fq, .fastq, .fq.gz"
+    )
+    parser_length.add_argument(
+        "-p",
+        "--prefix",
+        type=str,
+        required=True,
+        help="prefix to the files to return (bq and base proportion)",
+    )
+
     ## subcommand: fasta2fastq
     parser_length = subparsers.add_parser(
         "fasta2fastq",

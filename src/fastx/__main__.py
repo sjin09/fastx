@@ -8,6 +8,7 @@ __author__ = "Sangjin Lee"
 import os
 import sys
 import logging
+from fastx.gap import seq_gaps
 from fastx.head import seq_head
 from fastx.sort import seq_sort
 from fastx.split import seq_split
@@ -22,7 +23,9 @@ def main():
         logging.warning("Sequence file is missing")
 
     if options.input.endswith((".fa", ".fq", ".fasta", ".fastq", ".fa.gz", "fq.gz", ".fofn")):
-        if options.sub == "head": ## return first n lines of sequences
+        if options.sub == "gap": ## return first n lines of sequences
+            seq_gaps(options.input, options.output)
+        elif options.sub == "head": ## return first n lines of sequences
             seq_head(options.input, options.number, options.output)
         elif options.sub == "stat": ## returns sequence statisics
             seq_statistics(options.input, options.output)
@@ -41,7 +44,7 @@ def main():
             parser.print_help()
             parser.exit()
     else:
-        logging.warning("fastx does not support the input file yet")
+        logging.warning("fastx does not support the provided input file")
 
 
 

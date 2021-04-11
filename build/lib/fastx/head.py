@@ -3,7 +3,7 @@ import os
 import gzip
 import natsort
 from Bio import SeqIO
-from fastx.chunkstring import chunkstring
+from fastx.shared import chunkstring
 
 def fasta_head(infile, number, outfile):
     counter = 0
@@ -44,5 +44,3 @@ def seq_head(infile, number, outfile):
         fasta_head(infile, number, outfile)
     elif infile.endswith((".fq", ".fq.gz", ".fastq")):
         fastq_head(infile, number, outfile)
-    else:
-        print("FASTX does not support the provided input. Please provide a different input.")
