@@ -3,7 +3,7 @@ import os
 import gzip
 import natsort
 from Bio import SeqIO
-from fastx.shared import chunkstring
+from fastx.common import chunkstring
 
 def fasta_head(infile, number, outfile):
     counter = 0
