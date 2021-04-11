@@ -1,48 +1,54 @@
 ## modules
 import os
 import gzip
-import natsort
 from Bio import SeqIO
-from fastx.chunkstring import chunkstring
+from Bio.Seq import Seq
 
-def fasta_head(infile, number, outfile):
-    counter = 0
+
+def fasta_split(infile, outdir):
     fasta = (
         SeqIO.parse(infile, "fasta")
         if infile.endswith((".fa", ".fasta"))
         else SeqIO.parse(gzip.open(infile, "rt"), "fasta")
     )
     for seq in fasta:
-        counter += 1
+        outfile = open(
+            os.path.join(outdir, "{}.fa".format(seq.id.replace("/", "_"))), "w"
+        )
         outfile.write(">{}\n".format(seq.id))
-        for chunk in chunkstring(seq.seq):
+        for chunk in chunkstring(seq.seq, 50):
             outfile.write("{}\n".format(chunk))
-        if counter == number:
-            break
-    
+        outfile.close()
 
-def fastq_head(infile, number, outfile):
-    counter = 0
+
+def fastq_split(infile, outdir):
     seqfile = open(infile) if infile.endswith((".fq", ".fastq")) else gzip.open(infile)
     for i, j in enumerate(seqfile):
         k = i % 4
         if k == 0:  ## header
             seq_id = j.strip()
+            outfile = open(
+                os.path.join(
+                    outdir, "{}.fq".format(seq_id.replace("@", "").replace("/", "_"))
+                ),
+                "w",
+            )
         elif k == 1:  ## sequence
             seq = j.strip()
-        elif k == 2: ## plus
-            continue  
+            seq_len = len(seq)
+        elif k == 2:
+            continue  ## plus
         elif k == 3:  ## quality
             seq_bq = j.strip()
             outfile.write("{}\n{}\n+\n{}\n".format(seq_id, seq, seq_bq))
-            counter += 1
-            if counter == number:
-                break
+            outfile.close()
 
-def seq_head(infile, number, outfile):
+
+def seq_split(infile, outdir):
+    outdir = os.path.abspath(outdir)
+    if not os.path.exists(outdir):
+        os.mkdir(outdir)
     if infile.endswith((".fa", ".fa.gz", ".fasta")):
-        fasta_head(infile, number, outfile)
+        fasta_split(infile, outdir)
     elif infile.endswith((".fq", ".fq.gz", ".fastq")):
-        fastq_head(infile, number, outfile)
-    else:
-        print("FASTX does not support the provided input. Please provide a different input.")
+        fastq_split(infile, outdir)

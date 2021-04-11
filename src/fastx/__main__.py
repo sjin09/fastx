@@ -6,8 +6,10 @@ __author__ = "Sangjin Lee"
 
 ## modules
 import os
+from re import I
 import sys
 import logging
+from fastx.head import seq_head
 from fastx.sort import seq_sort
 from fastx.split import seq_split
 from fastx.length import seq_length
@@ -16,12 +18,14 @@ from fastx.parse_arguments import parse_args
 from fastx.transform import fasta2fastq, fastq2fasta
 
 def main():
-    options = parse_args(program_version=__version__)
+    parser, options = parse_args(program_version=__version__)
     if not os.path.exists(os.path.abspath(options.input)):
         logging.warning("Sequence file is missing")
 
     if options.input.endswith((".fa", ".fq", ".fasta", ".fastq", ".fa.gz", "fq.gz", ".fofn")):
-        if options.sub == "stat": ## returns sequence statisics
+        if options.sub == "head": ## return first n lines of sequences
+            seq_head(options.input, options.number, options.output)
+        elif options.sub == "stat": ## returns sequence statisics
             seq_statistics(options.input, options.output)
         elif options.sub == "sort": ## sort sequences
             seq_sort(options.input, options.output)
@@ -33,6 +37,10 @@ def main():
             fasta2fastq(options.input, options.output)
         elif options.sub == "fastq2fasta": ## fastq2fasta
             fastq2fasta(options.input, options.output)
+        else:
+            print("The subcommand does not exist!\n")
+            parser.print_help()
+            parser.exit()
     else:
         logging.warning("fastx does not support the input file yet")
 

@@ -3,45 +3,26 @@ import os
 import gzip
 import natsort
 from Bio import SeqIO
-from collections import defaultdict
+from fastx.chunkstring import chunkstring
 
-def chunkstring(string, string_length):
-    chunks = [
-        string[i : i + string_length] for i in range(0, len(string), string_length)
-    ]
-    return chunks
-
-def fasta_sort(infile, outfile):
+def fasta_head(infile, number, outfile):
     counter = 0
-    seq_hash = defaultdict()
     fasta = (
         SeqIO.parse(infile, "fasta")
         if infile.endswith((".fa", ".fasta"))
         else SeqIO.parse(gzip.open(infile, "rt"), "fasta")
     )
     for seq in fasta:
-        seq_hash[seq.id] = seq.seq ## assumes 
         counter += 1
-    seq_hash_count = len(seq_hash.keys())
+        outfile.write(">{}\n".format(seq.id))
+        for chunk in chunkstring(seq.seq):
+            outfile.write("{}\n".format(chunk))
+        if counter == number:
+            break
     
-    if seq_hash_count == counter:
-        unsorted_keys = seq_hash.keys()
-        sorted_keys = natsort.natsorted(seq_hash.keys())
-        k = all(sorted_keys[i] == j for i, j in enumerate(unsorted_keys))
-        if k:
-            print("Sequences are already sorted")
-        else:
-            for seq_id in sorted_keys:
-                outfile.write(">{}\n".format(seq_id))
-                for chunk in chunkstring(seq_hash[seq_id], 50):
-                    outfile.write("{}\n".format(chunk))
-    else:
-        print("Sequences do not have unique IDs")
 
-
-def fastq_sort(infile, outfile):
+def fastq_head(infile, number, outfile):
     counter = 0
-    seq_hash = defaultdict()
     seqfile = open(infile) if infile.endswith((".fq", ".fastq")) else gzip.open(infile)
     for i, j in enumerate(seqfile):
         k = i % 4
@@ -49,29 +30,19 @@ def fastq_sort(infile, outfile):
             seq_id = j.strip()
         elif k == 1:  ## sequence
             seq = j.strip()
-            seq_len = len(seq)
-        elif k == 2:
-            continue  ## plus
+        elif k == 2: ## plus
+            continue  
         elif k == 3:  ## quality
-            counter += 1
             seq_bq = j.strip()
-            seq_hash[seq_id] = "{}\n{}\n+\n{}\n".format(seq_id, seq, seq_bq)
-    ## return
-    seq_hash_count = len(seq_hash.keys())
-    if seq_hash_count == counter:
-        unsorted_keys = seq_hash.keys()
-        sorted_keys = natsort.natsorted(seq_hash.keys())
-        if all(sorted_keys[i] == j for i, j in enumerate(unsorted_keys)):
-            print("Sequences are already sorted")
-        else:
-            for seq_id in sorted_keys:
-                outfile.write("{}".format(seq_hash[seq_id]))
-    else:
-        print("Sequences do not have unique IDs")
+            outfile.write("{}\n{}\n+\n{}\n".format(seq_id, seq, seq_bq))
+            counter += 1
+            if counter == number:
+                break
 
-
-def seq_sort(infile, outfile):
+def seq_head(infile, number, outfile):
     if infile.endswith((".fa", ".fa.gz", ".fasta")):
-        fasta_sort(infile, outfile)
+        fasta_head(infile, number, outfile)
     elif infile.endswith((".fq", ".fq.gz", ".fastq")):
-        fastq_sort(infile, outfile)
+        fastq_head(infile, number, outfile)
+    else:
+        print("FASTX does not support the provided input. Please provide a different input.")

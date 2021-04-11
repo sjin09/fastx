@@ -21,6 +21,38 @@ def parse_args(program_version, arguments=sys.argv[1:]):
     ## subcommands
     subparsers = parser.add_subparsers(dest="sub")
 
+    ## subcommands
+    parser_head = subparsers.add_parser(
+        "head",
+        help="returns the first n lines of sequences",
+    )
+    parser_head.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
+        Programs supports the following prefixes: \
+        FASTA: .fa, .fasta, .fa.gz \
+        FASTQ: .fq, .fastq, .fq.gz",
+    )
+    parser_head.add_argument(
+        "-n",
+        "--number",
+        type=int,
+        default=5,
+        required=True,
+        help="number of sequences to return"\
+    )
+    parser_head.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=argparse.FileType("w"),
+        help="FILE to return the sequences",
+    )
+
+
     ## subcommands: sort
     parser_statistics = subparsers.add_parser(
         "sort",
@@ -159,4 +191,4 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         parser.print_help()
         parser.exit()
     else:
-        return parser.parse_args(arguments)
+        return parser, parser.parse_args(arguments)
