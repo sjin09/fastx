@@ -13,6 +13,7 @@ from fastx.split import seq_split
 from fastx.length import seq_length
 from fastx.statistics import seq_statistics
 from fastx.parse_arguments import parse_args
+from fastx.transform import fasta2fastq, fastq2fasta
 
 def main():
     options = parse_args(program_version=__version__)
@@ -28,6 +29,10 @@ def main():
             seq_split(options.input, options.directory)
         elif options.sub == "length": ## return sequence id and length
             seq_length(options.input, options.output)
+        elif options.sub == "fasta2fastq": ## fasta2fastq
+            fasta2fastq(options.input, options.output)
+        elif options.sub == "fastq2fasta": ## fastq2fasta
+            fastq2fasta(options.input, options.output)
     else:
         logging.warning("fastx does not support the input file yet")
 

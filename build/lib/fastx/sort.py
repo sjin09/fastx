@@ -33,7 +33,7 @@ def fasta_sort(infile, outfile):
         else:
             for seq_id in sorted_keys:
                 outfile.write(">{}\n".format(seq_id))
-                for chunk in chunkstring(seq_hash[seq_id], 50):
+                for chunk in chunkstring(seq_hash[seq_id]):
                     outfile.write("{}\n".format(chunk))
     else:
         print("Sequences do not have unique IDs")

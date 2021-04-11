@@ -19,7 +19,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
     )
 
     ## subcommands
-    subparsers = parser.add_subparsers(help="fastx subcommands", dest="sub")
+    subparsers = parser.add_subparsers(dest="sub")
 
     ## subcommands: sort
     parser_statistics = subparsers.add_parser(
@@ -111,6 +111,48 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         required=True,
         type=argparse.FileType("w"),
         help="FILE to return .length file(s)",
+    )
+    ## subcommand: fasta2fastq
+    parser_length = subparsers.add_parser(
+        "fasta2fastq",
+        help="converts FASTA to FASTQ file",
+    )
+    parser_length.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTA or gzipped FASTA \
+        Programs supports the following prefixes: \
+        FASTA: .fa, .fasta, .fa.gz"
+    )
+    parser_length.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=argparse.FileType("w"),
+        help="FILE to return FASTA file",
+    )
+
+    parser_length = subparsers.add_parser(
+        "fastq2fasta",
+        help="converts FASTQ to FASTA file",
+    )
+    parser_length.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTQ, gzipped FASTQ \
+        Programs supports the following prefixes: \
+        FASTQ: .fq, .fastq, .fq.gz",
+    )
+    parser_length.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=argparse.FileType("w"),
+        help="FILE to return FASTA file",
     )
 
     if len(arguments) == 0:
