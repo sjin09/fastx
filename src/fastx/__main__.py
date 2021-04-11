@@ -6,7 +6,6 @@ __author__ = "Sangjin Lee"
 
 ## modules
 import os
-from re import I
 import sys
 import logging
 from fastx.head import seq_head

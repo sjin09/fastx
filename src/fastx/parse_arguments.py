@@ -146,6 +146,28 @@ def parse_args(program_version, arguments=sys.argv[1:]):
     )
     ## subcommand: fasta2fastq
     parser_length = subparsers.add_parser(
+        "fastqc",
+        help="sequence quality control",
+    )
+    parser_length.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTQ or gzipped FASTQ \
+        Programs supports the following prefixes: \
+        FASTQ: .fq, .fastq, .fq.gz"
+    )
+    parser_length.add_argument(
+        "-p",
+        "--prefix",
+        type=str,
+        required=True,
+        help="prefix to the files to return (bq and base proportion)",
+    )
+
+    ## subcommand: fasta2fastq
+    parser_length = subparsers.add_parser(
         "fasta2fastq",
         help="converts FASTA to FASTQ file",
     )
