@@ -14,7 +14,7 @@ def fastqc(infile, prefix):
     global dna
     global positions
     bq_count_hash = {i:0 for i in range(1,94)}
-    bq_proportion_hash = {}
+    bq_cumsum_hash = {}
     base_proportion_hash = NestedDefaultDict()
     bq_proportion_outfile = open("{}.bq_proportion.txt".format(prefix), "w")
     base_proportion_outfile = open("{}.base_proportion.txt".format(prefix), "w")
@@ -62,10 +62,10 @@ def fastqc(infile, prefix):
         count = 0
         for _bq in range(1, upper_bq):
             count += bq_count_hash[_bq]
-        bq_proportion_hash[upper_bq] = "{:.2f}".format((count/seq_sum) * 100)
-    bq_proportion_hash[93] = "{:.2f}".format((bq_count_hash[93]/seq_sum) * 100)
-    for _bq in bq_proportion_hash:
-        bq_proportion_outfile.write("Q{}: {}%\n".format(_bq, bq_proportion_hash[_bq]))
+        bq_cumsum_hash[upper_bq] = count
+    bq_cumsum_hash[93] = bq_count_hash[93]
+    for _bq in bq_cumsum_hash:
+        bq_proportion_outfile.write("Q{}: {}/{}:= {:.2f}%\n".format(_bq, bq_cumsum_hash[_bq], seq_sum, (bq_cumsum_hash[_bq]/seq_sum) * 100))
     
 
 
