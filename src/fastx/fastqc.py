@@ -13,13 +13,16 @@ def fastqc(infile, prefix):
     ## init
     global dna
     global positions
+    bq_count_hash = {i:0 for i in range(1,94)}
+    bq_proportion_hash = {}
     base_proportion_hash = NestedDefaultDict()
     bq_proportion_outfile = open("{}.bq_proportion.txt".format(prefix), "w")
     base_proportion_outfile = open("{}.base_proportion.txt".format(prefix), "w")
     for p in positions:
         for base in dna:
             base_proportion_hash[p][base] = 0
-            
+
+    seq_sum = 0 
     seqfile = open(infile) if infile.endswith((".fq", ".fastq")) else gzip.open(infile)
     for i, j in enumerate(seqfile):
         k = i % 4
@@ -29,6 +32,7 @@ def fastqc(infile, prefix):
             seq = j.strip()
             seq_len = len(seq)
             seq_lst = list(seq)
+            seq_sum += seq_len
             seq_pos = np.asarray(range(0, seq_len)) / seq_len
             seq_pos = [format(m, ".2f") for m in seq_pos]
             ## append
@@ -37,9 +41,11 @@ def fastqc(infile, prefix):
         elif k == 2:
             continue  ## plus
         elif k == 3:  ## quality
-            seq_bq = j.strip()
-            # outfile.write("{}\n{}\n+\n{}\n".format(seq_id, seq, seq_bq))
-            # outfile.close()
+            bq_ascii = j.strip()
+            bq_int_lst = [ord(bq) - 33 for bq in list(bq_ascii)]
+            for bq in bq_int_lst:
+                bq_count_hash[bq] += 1
+
     ## return
     base_proportion_outfile.write("{}\t{}\t{}\t{}\t{}\t{}\n".format("POS", "A", "T", "G", "C", "COUNTS"))
     for pos in base_proportion_hash:
@@ -51,7 +57,17 @@ def fastqc(infile, prefix):
         base_proportion_outfile.write("{}\n".format("\t".join([pos] + base_proportion + base_count)))
     base_proportion_outfile.close()
 
-    # print(base_proportion_hash)
+    ## return
+    for upper_bq in list(range(10, 100, 10)):
+        count = 0
+        for _bq in range(1, upper_bq):
+            count += bq_count_hash[_bq]
+        bq_proportion_hash[upper_bq] = "{:.2f}".format((count/seq_sum) * 100)
+    bq_proportion_hash[93] = "{:.2f}".format((bq_count_hash[93]/seq_sum) * 100)
+    for _bq in bq_proportion_hash:
+        bq_proportion_outfile.write("Q{}: {}%\n".format(_bq, bq_proportion_hash[_bq]))
+    
+
 
 def seq_fastqc(infile, prefix):
     if infile.endswith((".fq", ".fq.gz", ".fastq")):
