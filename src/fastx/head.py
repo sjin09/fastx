@@ -40,7 +40,7 @@ def fastq_head(infile, number, outfile):
                 break
 
 def seq_head(infile, number, outfile):
-    if infile.endswith((".fa", ".fa.gz", ".fasta")):
+    if infile.endswith((".fa", ".fa.gz", ".fasta", ".fasta.gz")):
         fasta_head(infile, number, outfile)
-    elif infile.endswith((".fq", ".fq.gz", ".fastq")):
+    elif infile.endswith((".fq", ".fq.gz", ".fastq", ".fastq.gz")):
         fastq_head(infile, number, outfile)

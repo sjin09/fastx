@@ -70,7 +70,7 @@ def fastqc(infile, prefix):
 
 
 def seq_fastqc(infile, prefix):
-    if infile.endswith((".fq", ".fq.gz", ".fastq")):
+    if infile.endswith((".fq", ".fq.gz", ".fastq", ".fastq.gz")):
         fastqc(infile, prefix)
     else:
         print("fastqc does not support the provided input file")
