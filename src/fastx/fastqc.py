@@ -65,7 +65,7 @@ def fastqc(infile, prefix):
         bq_cumsum_hash[upper_bq] = count
     bq_cumsum_hash[93] = bq_count_hash[93]
     for _bq in bq_cumsum_hash:
-        bq_proportion_outfile.write("Q{}: {}/{}:= {:.2f}%\n".format(_bq, bq_cumsum_hash[_bq], seq_sum, (bq_cumsum_hash[_bq]/seq_sum) * 100))
+        bq_proportion_outfile.write("Q{}: {}/{} = {:.2f}%\n".format(_bq, bq_cumsum_hash[_bq], seq_sum, (bq_cumsum_hash[_bq]/seq_sum) * 100))
     
 
 
