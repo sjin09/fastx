@@ -29,7 +29,7 @@ def fastqc(infile, prefix):
         if k == 0:  ## header
             seq_id = j.strip()
         elif k == 1:  ## sequence
-            seq = j.strip()
+            seq = j.strip().decode("utf-8")
             seq_len = len(seq)
             seq_lst = list(seq)
             seq_sum += seq_len
@@ -41,7 +41,7 @@ def fastqc(infile, prefix):
         elif k == 2:
             continue  ## plus
         elif k == 3:  ## quality
-            bq_ascii = j.strip()
+            bq_ascii = j.strip().decode("utf-8")
             bq_int_lst = [ord(bq) - 33 for bq in list(bq_ascii)]
             for bq in bq_int_lst:
                 bq_count_hash[bq] += 1
@@ -65,12 +65,12 @@ def fastqc(infile, prefix):
         bq_cumsum_hash[upper_bq] = count
     bq_cumsum_hash[93] = bq_count_hash[93]
     for _bq in bq_cumsum_hash:
-        bq_proportion_outfile.write("Q{}: {}/{}:= {:.2f}%\n".format(_bq, bq_cumsum_hash[_bq], seq_sum, (bq_cumsum_hash[_bq]/seq_sum) * 100))
+        bq_proportion_outfile.write("Q{}: {}/{} = {:.2f}%\n".format(_bq, bq_cumsum_hash[_bq], seq_sum, (bq_cumsum_hash[_bq]/seq_sum) * 100))
     
 
 
 def seq_fastqc(infile, prefix):
-    if infile.endswith((".fq", ".fq.gz", ".fastq")):
+    if infile.endswith((".fq", ".fq.gz", ".fastq", ".fastq.gz")):
         fastqc(infile, prefix)
     else:
         print("fastqc does not support the provided input file")

@@ -23,7 +23,7 @@ def main():
     if not os.path.exists(os.path.abspath(options.input)):
         logging.warning("Sequence file is missing")
 
-    if options.input.endswith((".fa", ".fq", ".fa.gz", ".fq.gz", ".fasta", ".fastq", ".fasta.gz", "fastq.gz")):
+    if options.input.endswith((".fa", ".fq", ".fa.gz", ".fq.gz", ".fasta", ".fastq", ".fasta.gz", ".fastq.gz")):
         if options.sub == "gap": ## return first n lines of sequences
             seq_gaps(options.input, options.output)
         elif options.sub == "head": ## return first n lines of sequences

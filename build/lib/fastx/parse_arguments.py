@@ -32,7 +32,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         required=True,
         help="FASTA, or gzipped FASTA \
         Programs supports the following prefixes: \
-        FASTA: .fa, .fasta, .fa.gz"
+        FASTA: .fa, .fa.gz, .fasta, .fasta.gz"
     )
     parser_head.add_argument(
         "-o",
@@ -54,8 +54,8 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         required=True,
         help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
         Programs supports the following prefixes: \
-        FASTA: .fa, .fasta, .fa.gz \
-        FASTQ: .fq, .fastq, .fq.gz",
+        FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
+        FASTQ: .fq, .fq.,gz .fastq, .fastq.gz",
     )
     parser_head.add_argument(
         "-n",
@@ -109,8 +109,8 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         required=True,
         help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
         Programs supports the following prefixes: \
-        FASTA: .fa, .fasta, .fa.gz \
-        FASTQ: .fq, .fastq, .fq.gz",
+        FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
     )
     parser_statistics.add_argument(
         "-o",
@@ -132,8 +132,8 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         required=True,
         help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
         Programs supports the following prefixes: \
-        FASTA: .fa, .fasta, .fa.gz \
-        FASTQ: .fq, .fastq, .fq.gz",
+        FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
+        FASTQ: .fq, .fq.gz, .fastq, .fasta.gz",
     )
     parser_statistics.add_argument(
         "-d",
@@ -155,8 +155,8 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         required=True,
         help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
         Programs supports the following prefixes: \
-        FASTA: .fa, .fasta, .fa.gz \
-        FASTQ: .fq, .fastq, .fq.gz",
+        FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
     )
     parser_length.add_argument(
         "-o",
@@ -177,7 +177,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         required=True,
         help="FASTQ or gzipped FASTQ \
         Programs supports the following prefixes: \
-        FASTQ: .fq, .fastq, .fq.gz"
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz"
     )
     parser_length.add_argument(
         "-p",
@@ -199,7 +199,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         required=True,
         help="FASTA or gzipped FASTA \
         Programs supports the following prefixes: \
-        FASTA: .fa, .fasta, .fa.gz"
+        FASTA: .fa, .fa.gz, .fasta, .fasta.gz"
     )
     parser_length.add_argument(
         "-o",
@@ -220,7 +220,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         required=True,
         help="FASTQ, gzipped FASTQ \
         Programs supports the following prefixes: \
-        FASTQ: .fq, .fastq, .fq.gz",
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
     )
     parser_length.add_argument(
         "-o",
