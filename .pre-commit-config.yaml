@@ -20,8 +20,4 @@ repos:
     hooks:
       - id: reorder-python-imports
         args: [--application-directories=src]
-  - repo: https://github.com/timothycrosley/isort
-    rev: 5.4.2
-    hooks:
-      - id: isort
-        additional_dependencies: [toml]
+
