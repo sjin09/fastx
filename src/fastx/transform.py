@@ -1,8 +1,10 @@
 ## modules
-import os
 import gzip
+import os
+
 from Bio import SeqIO
 from Bio.Seq import Seq
+
 from fastx.chunkstring import chunkstring
 
 

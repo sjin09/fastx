@@ -1,9 +1,8 @@
 ## modules
-import os
 import gzip
-import natsort
 from Bio import SeqIO
 from fastx.common import chunkstring
+
 
 def fasta_head(infile, number, outfile):
     counter = 0
@@ -19,7 +18,7 @@ def fasta_head(infile, number, outfile):
             outfile.write("{}\n".format(chunk))
         if counter == number:
             break
-    
+
 
 def fastq_head(infile, threshold, outfile):
     counter = 0
@@ -30,14 +29,15 @@ def fastq_head(infile, threshold, outfile):
             seq_id = j.strip().decode("utf-8")
         elif k == 1:  ## sequence
             seq = j.strip().decode("utf-8")
-        elif k == 2: ## plus
-            continue  
+        elif k == 2:  ## plus
+            continue
         elif k == 3:  ## quality
             seq_bq = j.strip().decode("utf-8")
             outfile.write("{}\n{}\n+\n{}\n".format(seq_id, seq, seq_bq))
             counter += 1
             if counter == threshold:
                 break
+
 
 def seq_head(infile, number, outfile):
     if infile.endswith((".fa", ".fa.gz", ".fasta", ".fasta.gz")):
