@@ -30,9 +30,9 @@ def fastq2fasta(infile, outfile):
         for i, j in enumerate(seqfile):
             k = i % 4
             if k == 0:  ## header
-                seq_id = j.strip().replace("@", ">")
+                seq_id = j.strip().decode("utf-8").replace("@", ">")
             elif k == 1:  ## sequence
-                seq = j.strip()
+                seq = j.strip().decode("utf-8")
             elif k == 2:
                 continue  ## plus
             elif k == 3:  ## quality
