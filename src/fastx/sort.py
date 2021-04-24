@@ -1,15 +1,16 @@
-## modules
-import os
+# modules
 import gzip
 import natsort
 from Bio import SeqIO
 from collections import defaultdict
+
 
 def chunkstring(string, string_length):
     chunks = [
         string[i : i + string_length] for i in range(0, len(string), string_length)
     ]
     return chunks
+
 
 def fasta_sort(infile, outfile):
     counter = 0
@@ -20,10 +21,10 @@ def fasta_sort(infile, outfile):
         else SeqIO.parse(gzip.open(infile, "rt"), "fasta")
     )
     for seq in fasta:
-        seq_hash[seq.id] = seq.seq ## assumes 
+        seq_hash[seq.id] = seq.seq  # assumes
         counter += 1
     seq_hash_count = len(seq_hash.keys())
-    
+
     if seq_hash_count == counter:
         unsorted_keys = seq_hash.keys()
         sorted_keys = natsort.natsorted(seq_hash.keys())
@@ -45,18 +46,17 @@ def fastq_sort(infile, outfile):
     seqfile = open(infile) if infile.endswith((".fq", ".fastq")) else gzip.open(infile)
     for i, j in enumerate(seqfile):
         k = i % 4
-        if k == 0:  ## header
+        if k == 0:  # header
             seq_id = j.strip()
-        elif k == 1:  ## sequence
+        elif k == 1:  # sequence
             seq = j.strip()
-            seq_len = len(seq)
         elif k == 2:
-            continue  ## plus
-        elif k == 3:  ## quality
+            continue  # plus
+        elif k == 3:  # quality
             counter += 1
             seq_bq = j.strip()
             seq_hash[seq_id] = "{}\n{}\n+\n{}\n".format(seq_id, seq, seq_bq)
-    ## return
+    # return
     seq_hash_count = len(seq_hash.keys())
     if seq_hash_count == counter:
         unsorted_keys = seq_hash.keys()
