@@ -76,7 +76,7 @@ def fastqc(infile, prefix):
         )
 
 
-def seq_fastqc(infile, prefix):
+def seq_fastqc(infile):
     if infile.endswith((".fq", ".fq.gz", ".fastq", ".fastq.gz")):
         if infile.endswith(".fq"):
             prefix = infile.replace(".fq", "")
