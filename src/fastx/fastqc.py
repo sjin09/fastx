@@ -30,7 +30,8 @@ def fastqc(infile, prefix):
         if k == 0:  # header
             _seq_id = j.strip()
         elif k == 1:  # sequence
-            seq = j.strip().decode("utf-8")
+            seq = j.strip()
+            seq = seq if not isinstance(seq, bytes) else seq.decode("utf-8")
             seq_len = len(seq)
             seq_lst = list(seq)
             seq_sum += seq_len
@@ -42,7 +43,8 @@ def fastqc(infile, prefix):
         elif k == 2:
             continue  # plus
         elif k == 3:  # quality
-            bq_ascii = j.strip().decode("utf-8")
+            bq_ascii = j.strip()
+            bq_ascii = bq_ascii if not isinstance(bq_ascii, bytes) else bq_ascii.decode("utf-8")
             bq_int_lst = [ord(bq) - 33 for bq in list(bq_ascii)]
             for bq in bq_int_lst:
                 bq_count_hash[bq] += 1
