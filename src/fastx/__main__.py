@@ -46,7 +46,7 @@ def run_subcommands(parser, options):
     elif options.sub == "length":  # return sequence id and length
         seq_length(options.input, options.output)
     elif options.sub == "fastqc":  # fasta2fastq
-        seq_fastqc(options.input, options.prefix)
+        seq_fastqc(options.input)
     elif options.sub == "fasta2fastq":  # fasta2fastq
         fasta2fastq(options.input, options.output)
     elif options.sub == "fastq2fasta":  # fastq2fasta

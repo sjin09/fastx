@@ -78,6 +78,14 @@ def fastqc(infile, prefix):
 
 def seq_fastqc(infile, prefix):
     if infile.endswith((".fq", ".fq.gz", ".fastq", ".fastq.gz")):
+        if infile.endswith(".fq"):
+            prefix = infile.replace(".fq", "")
+        elif infile.endswith(".fq.gz"):
+            prefix = infile.replace(".fq.gz", "")
+        elif infile.endswith(".fastq"):
+            prefix = infile.replace(".fastq", "")
+        elif infile.endswith(".fastq.gz"):
+            prefix = infile.replace(".fastq.gz", "")
         fastqc(infile, prefix)
     else:
         print("fastqc does not support the provided input file")

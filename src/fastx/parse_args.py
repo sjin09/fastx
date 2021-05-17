@@ -23,8 +23,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
     subparsers = parser.add_subparsers(dest="sub")
 
     parser_head = subparsers.add_parser(
-        "gap",
-        help="returns a BED file with gap positions",
+        "gap", help="returns a BED file with gap positions",
     )
     parser_head.add_argument(
         "-i",
@@ -45,8 +44,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
 
     # subcommands: head
     parser_head = subparsers.add_parser(
-        "head",
-        help="returns the first n lines of sequences",
+        "head", help="returns the first n lines of sequences",
     )
     parser_head.add_argument(
         "-i",
@@ -75,10 +73,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
     )
 
     # subcommands: sort
-    parser_statistics = subparsers.add_parser(
-        "sort",
-        help="returns sorted sequences",
-    )
+    parser_statistics = subparsers.add_parser("sort", help="returns sorted sequences",)
     parser_statistics.add_argument(
         "-i",
         "--input",
@@ -99,8 +94,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
 
     # subcommands: sequence statistics
     parser_statistics = subparsers.add_parser(
-        "stat",
-        help="reads returns sequence statistics",
+        "stat", help="reads returns sequence statistics",
     )
     parser_statistics.add_argument(
         "-i",
@@ -122,8 +116,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
 
     # subcommands: split
     parser_statistics = subparsers.add_parser(
-        "split",
-        help="splits and return sequences",
+        "split", help="splits and return sequences",
     )
     parser_statistics.add_argument(
         "-i",
@@ -145,8 +138,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
 
     # subcommands: length
     parser_length = subparsers.add_parser(
-        "length",
-        help="returns sequence id and length as tab separated value",
+        "length", help="returns sequence id and length as tab separated value",
     )
     parser_length.add_argument(
         "-i",
@@ -166,10 +158,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         help="FILE to return .length file(s)",
     )
     # subcommand: fasta2fastq
-    parser_length = subparsers.add_parser(
-        "fastqc",
-        help="sequence quality control",
-    )
+    parser_length = subparsers.add_parser("fastqc", help="sequence quality control",)
     parser_length.add_argument(
         "-i",
         "--input",
@@ -179,18 +168,9 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         Programs supports the following prefixes: \
         FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
     )
-    parser_length.add_argument(
-        "-p",
-        "--prefix",
-        type=str,
-        required=True,
-        help="prefix to the files to return (bq and base proportion)",
-    )
-
     # subcommand: fasta2fastq
     parser_length = subparsers.add_parser(
-        "fasta2fastq",
-        help="converts FASTA to FASTQ file",
+        "fasta2fastq", help="converts FASTA to FASTQ file",
     )
     parser_length.add_argument(
         "-i",
@@ -210,8 +190,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
     )
 
     parser_length = subparsers.add_parser(
-        "fastq2fasta",
-        help="converts FASTQ to FASTA file",
+        "fastq2fasta", help="converts FASTQ to FASTA file",
     )
     parser_length.add_argument(
         "-i",
