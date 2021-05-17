@@ -1,8 +1,10 @@
 ## modules
-import os
 import gzip
+import os
+
 from Bio import SeqIO
 from Bio.Seq import Seq
+
 from fastx.chunkstring import chunkstring
 
 
@@ -23,16 +25,16 @@ def fasta2fastq(infile, outfile):
 
 def fastq2fasta(infile, outfile):
 
-    if infile.endswith((".fq", ".fq.gz", ".fastq")):
+    if infile.endswith((".fq", ".fq.gz", ".fastq", ".fastq.gz")):
         seqfile = (
             open(infile) if infile.endswith((".fq", ".fastq")) else gzip.open(infile)
         )
         for i, j in enumerate(seqfile):
             k = i % 4
             if k == 0:  ## header
-                seq_id = j.strip().replace("@", ">")
+                seq_id = j.strip().decode("utf-8").replace("@", ">")
             elif k == 1:  ## sequence
-                seq = j.strip()
+                seq = j.strip().decode("utf-8")
             elif k == 2:
                 continue  ## plus
             elif k == 3:  ## quality

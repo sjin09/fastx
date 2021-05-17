@@ -1,9 +1,11 @@
 ## modules
-import os
 import gzip
+import os
+from collections import defaultdict
+
 import natsort
 from Bio import SeqIO
-from collections import defaultdict
+
 
 def chunkstring(string, string_length):
     chunks = [

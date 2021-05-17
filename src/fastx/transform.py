@@ -25,7 +25,7 @@ def fasta2fastq(infile, outfile):
 
 def fastq2fasta(infile, outfile):
 
-    if infile.endswith((".fq", ".fq.gz", ".fastq")):
+    if infile.endswith((".fq", ".fq.gz", ".fastq", ".fastq.gz")):
         seqfile = (
             open(infile) if infile.endswith((".fq", ".fastq")) else gzip.open(infile)
         )

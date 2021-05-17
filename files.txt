@@ -1,0 +1,9 @@
+/Users/sl17/Languages/python3/lib/python3.8/site-packages/fastx-0.0.1-py3.8.egg
+/Users/sl17/Languages/python3/bin/fastx
+/Users/sl17/Languages/python3/bin/bio
+/Users/sl17/Languages/python3/bin/comm.py
+/Users/sl17/Languages/python3/bin/uniq.py
+/Users/sl17/Languages/python3/bin/f2py
+/Users/sl17/Languages/python3/bin/f2py3
+/Users/sl17/Languages/python3/bin/f2py3.8
+/Users/sl17/Languages/python3/bin/chardetect
