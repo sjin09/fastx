@@ -4,8 +4,7 @@ import os
 
 from Bio import SeqIO
 from Bio.Seq import Seq
-
-from fastx.chunkstring import chunkstring
+from fastx.util import chunkstring
 
 
 def fasta2fastq(infile, outfile):
