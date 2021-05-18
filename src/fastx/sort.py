@@ -5,6 +5,10 @@ from Bio import SeqIO
 from collections import defaultdict
 from fastx.util import chunkstring
 
+def write_fasta(seq, seq_id, outfile):
+    outfile.write(">{}\n".format(seq_id))
+    for chunk in chunkstring(seq):
+        outfile.write("{}\n".format(chunk))
 
 def fasta_sort(infile, outfile):
     counter = 0
@@ -26,10 +30,26 @@ def fasta_sort(infile, outfile):
         if k:
             print("Sequences are already sorted")
         else:
+            pseudomolecule_lst = []
+            contig_scaffold_lst = []
+            unlocalised_unplaced_lst =[] 
             for seq_id in sorted_keys:
-                outfile.write(">{}\n".format(seq_id))
-                for chunk in chunkstring(seq_hash[seq_id]):
-                    outfile.write("{}\n".format(chunk))
+                if seq_id.startswith(("chr", "SUPER")):
+                    pseudomolecule_lst.append(seq_id)
+                else:
+                    if seq_id.startswith("S"):
+                        unlocalised_unplaced_lst.append(seq_id)
+                    else:
+                        contig_scaffold_lst.append(seq_id)
+            pseudomolecule_lst = natsort.natsorted(pseudomolecule_lst)
+            contig_scaffold_lst = natsort.natsorted(contig_scaffold_lst)
+            unlocalised_unplaced_lst = natsort.natsorted(unlocalised_unplaced_lst)
+            for seq_id in pseudomolecule_lst:
+                write_fasta(seq_hash[seq_id], seq_id, outfile)
+            for seq_id in unlocalised_unplaced_lst:
+                    write_fasta(seq_hash[seq_id], seq_id, outfile)
+            for seq_id in contig_scaffold_lst:
+                write_fasta(seq_hash[seq_id], seq_id, outfile)
     else:
         print("Sequences do not have unique IDs")
 
