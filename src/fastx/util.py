@@ -8,9 +8,9 @@ class NestedDefaultDict(defaultdict):
         return repr(dict(self))
 
 
-def chunkstring(string, string_length=50):
+def chunkstring(string):
     chunks = [
-        string[i : i + string_length] for i in range(0, len(string), string_length)
+        string[i : i + 60] for i in range(0, len(string), 60)
     ]
     return chunks
 

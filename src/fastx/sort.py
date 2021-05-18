@@ -3,13 +3,7 @@ import gzip
 import natsort
 from Bio import SeqIO
 from collections import defaultdict
-
-
-def chunkstring(string):
-    chunks = [
-        string[i : i + 60] for i in range(0, len(string), 60)
-    ]
-    return chunks
+from fastx.util import chunkstring
 
 
 def fasta_sort(infile, outfile):
