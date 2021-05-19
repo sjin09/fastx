@@ -29,7 +29,8 @@ def load_seqfile(infile):
 
 def return_names(infile, outfile):
     seqfile = load_seqfile(infile)
-    for read in seqfile:
+    for index in seqfile:
+        read = seqfile[index]
         outfile.write("{}\n".format(read.name))
 
 
