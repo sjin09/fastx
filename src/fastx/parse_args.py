@@ -113,7 +113,20 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         type=argparse.FileType("w"),
         help="FILE to return .stat file(s)",
     )
-
+    # subcommands: pyfastx index
+    parser_statistics = subparsers.add_parser(
+        "index", help="generate .fxi index files",
+    )
+    parser_statistics.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
+        Programs supports the following prefixes: \
+        FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
+    )
     # subcommands: split
     parser_statistics = subparsers.add_parser(
         "split", help="splits and return sequences",

@@ -17,6 +17,7 @@ from fastx.fastqc import seq_fastqc
 from fastx.tricounts import tricounts
 from fastx.parse_args import parse_args
 from fastx.statistics import seq_statistics
+from fastx.blacklist import filter_blacklist
 from fastx.transform import fasta2fastq, fastq2fasta
 
 # global
@@ -43,9 +44,11 @@ def run_subcommands(parser, options):
         seq_sort(options.input, options.output)
     elif options.sub == "split":  # split and return sequences
         seq_split(options.input, options.directory)
+    elif options.sub == "index":  # generate fxi index files
+        seq_split(options.input)
     elif options.sub == "length":  # return sequence id and length
         seq_length(options.input, options.output)
-    elif options.sub == "fastqc":  # fasta2fastq
+    elif options.sub == "fastqc":  # fastqc
         seq_fastqc(options.input)
     elif options.sub == "fasta2fastq":  # fasta2fastq
         fasta2fastq(options.input, options.output)
