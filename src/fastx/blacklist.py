@@ -47,9 +47,7 @@ def return_whitelist(infile, blacklist, outfile):
     whitelist_set = load_whitelist(zmw_lst, blacklist_set)
     for zmw in whitelist_set:
         read = seqfile[zmw]
-        print("{}".format(read.raw))
-
-    # outfile.write("{}\n{}\n+\n{}\n".format(seq_id, seq, seq_bq))
+        outfile.write("{}".format(read.raw))
 
 
 def filter_blacklist(infile, blacklist, outfile):
