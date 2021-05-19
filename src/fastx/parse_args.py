@@ -143,7 +143,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
     )
     parser_statistics.add_argument(
         "-d",
-        "--directory",
+        "--dir",
         type=str,
         required=True,
         help="directory to return the split sequences",
@@ -201,7 +201,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         type=argparse.FileType("w"),
         help="FILE to return FASTA file",
     )
-
+    ## subcommands: fastq2fasta
     parser_length = subparsers.add_parser(
         "fastq2fasta", help="converts FASTQ to FASTA file",
     )
@@ -221,7 +221,33 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         type=argparse.FileType("w"),
         help="FILE to return FASTA file",
     )
-
+    ## subcommands: blacklist
+    parser_length = subparsers.add_parser(
+        "blacklist", help="returns filtered.fastq based on blacklist",
+    )
+    parser_length.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTQ, gzipped FASTQ \
+        Programs supports the following prefixes: \
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
+    )
+    parser_length.add_argument(
+        "--blacklist",
+        type=str,
+        required=True,
+        help="ZMW blacklist"
+    )
+    parser_length.add_argument(
+        "-o",
+        "--output",
+        type=argparse.FileType("w"),
+        required=True,
+        help="file to return filtered FASTQ file"
+    )
+    ## subcommandS: tricounts
     parser_length = subparsers.add_parser(
         "tricounts",
         help="counts trinucleotide sequence contexts from FASTA and FASTQ file",

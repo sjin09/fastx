@@ -51,6 +51,8 @@ def run_subcommands(parser, options):
         seq_length(options.input, options.output)
     elif options.sub == "fastqc":  # fastqc
         seq_fastqc(options.input)
+    elif options.sub == "blacklist":  # generate fxi index files
+        seq_index(options.input, options.blacklist, options.output)
     elif options.sub == "fasta2fastq":  # fasta2fastq
         fasta2fastq(options.input, options.output)
     elif options.sub == "fastq2fasta":  # fastq2fasta
