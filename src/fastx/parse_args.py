@@ -127,6 +127,27 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
         FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
     )
+    # subcommands: names
+    parser_length = subparsers.add_parser(
+        "names", help="returns sequence id",
+    )
+    parser_length.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
+        Programs supports the following prefixes: \
+        FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
+    )
+    parser_length.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=argparse.FileType("w"),
+        help="FILE to return seq id",
+    )
     # subcommands: split
     parser_statistics = subparsers.add_parser(
         "split", help="splits and return sequences",

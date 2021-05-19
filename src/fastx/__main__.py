@@ -12,6 +12,7 @@ from fastx.gap import seq_gaps
 from fastx.head import seq_head
 from fastx.sort import seq_sort
 from fastx.split import seq_split
+from fastx.names import seq_names
 from fastx.index import seq_index
 from fastx.length import seq_length
 from fastx.fastqc import seq_fastqc
@@ -43,6 +44,8 @@ def run_subcommands(parser, options):
         seq_statistics(options.input, options.output)
     elif options.sub == "sort":  # sort sequences
         seq_sort(options.input, options.output)
+    elif options.sub == "names":  # return first n lines of sequences
+        seq_names(options.input, options.output)
     elif options.sub == "split":  # split and return sequences
         seq_split(options.input, options.directory)
     elif options.sub == "index":  # generate fxi index files
