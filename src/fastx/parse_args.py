@@ -189,6 +189,13 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         required=True,
         help="ZMW blacklist"
     )
+    parser_length.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=argparse.FileType("w"),
+        help="FILE to return filtered FASTQ file",
+    )
     # subcommand: fasta2fastq
     parser_length = subparsers.add_parser("fastqc", help="sequence quality control",)
     parser_length.add_argument(
