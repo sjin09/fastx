@@ -29,9 +29,9 @@ def load_seqfile(infile):
 
 def return_names(infile, outfile):
     seqfile = load_seqfile(infile)
-    for index in seqfile:
-        read = seqfile[index]
-        outfile.write("{}\n".format(read.name))
+    id_lst = seqfile.keys()
+    for id in id_lst:
+        outfile.write("{}\n".format(id))
 
 
 def seq_names(infile, outfile):
