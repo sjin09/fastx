@@ -17,7 +17,7 @@ from fastx.fastqc import seq_fastqc
 from fastx.tricounts import tricounts
 from fastx.parse_args import parse_args
 from fastx.statistics import seq_statistics
-from fastx.blacklist import filter_blacklist
+# from fastx.blacklist import filter_blacklist
 from fastx.transform import fasta2fastq, fastq2fasta
 
 # global
