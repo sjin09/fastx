@@ -28,7 +28,9 @@ def fasta_sort(infile, outfile):
         sorted_keys = natsort.natsorted(seq_hash.keys())
         k = all(sorted_keys[i] == j for i, j in enumerate(unsorted_keys))
         if k:
-            print("Sequences are already sorted")
+            sorted_lst = list(sorted_keys)
+            for seq_id in sorted_lst:
+                write_fasta(seq_hash[seq_id], seq_id, outfile) 
         else:
             pseudomolecule_lst = []
             contig_scaffold_lst = []
@@ -44,11 +46,8 @@ def fasta_sort(infile, outfile):
             pseudomolecule_lst = natsort.natsorted(pseudomolecule_lst)
             contig_scaffold_lst = natsort.natsorted(contig_scaffold_lst)
             unlocalised_unplaced_lst = natsort.natsorted(unlocalised_unplaced_lst)
-            for seq_id in pseudomolecule_lst:
-                write_fasta(seq_hash[seq_id], seq_id, outfile)
-            for seq_id in unlocalised_unplaced_lst:
-                    write_fasta(seq_hash[seq_id], seq_id, outfile)
-            for seq_id in contig_scaffold_lst:
+            sorted_lst = pseudomolecule_lst + contig_scaffold_lst + unlocalised_unplaced_lst
+            for seq_id in sorted_lst:
                 write_fasta(seq_hash[seq_id], seq_id, outfile)
     else:
         print("Sequences do not have unique IDs")
