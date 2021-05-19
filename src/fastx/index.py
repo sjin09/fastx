@@ -6,15 +6,15 @@ def build_index(infile):
     if os.path.exists(fxifile):
         print("fxi index is present"):
     else:
-        print("buliding fxi index for {}".format(index))
+        print("buliding fxi index for {}".format(infile))
         if infile.endswith((".fa", ".fa.gz", ".fasta", ".fasta.gz")):
             pyfastx.Fasta(infile)
         else: 
             pyfastx.Fastq(infile)
-        print("fxi index has been created for {}".format(index))
+        print("fxi index has been created for {}".format(infile))
 
 
-def seq_fastqc(infile):
+def seq_index(infile):
     if infile.endswith((".fa", ".fa.gz", ".fasta", ".fasta.gz", ".fq", ".fq.gz", ".fastq", ".fastq.gz")):
         build_index(infile)
     else:
