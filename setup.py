@@ -40,10 +40,18 @@ setup(
     entry_points={"console_scripts": ["fastx = fastx.__main__:main"]},
     packages=['fastx'],
     package_dir={"": "src"},
-    package_data={"fastx": ["*.typed"]},
+    package_data={
+        "fastx": [
+            "*.typed", ".mypy_cache/*.TAG", ".mypy_cache/3.8/*.json",
+            ".mypy_cache/3.8/_typeshed/*.json",
+            ".mypy_cache/3.8/collections/*.json",
+            ".mypy_cache/3.8/fastx/*.json", ".mypy_cache/3.8/importlib/*.json",
+            ".mypy_cache/3.8/os/*.json"
+        ]
+    },
     install_requires=[
         'argparse==1.*,>=1.4.0', 'bio==0.*,>=0.4.1', 'click==7.*,>=7.0.0',
-        'pysam==0.*,>=0.16.0'
+        'natsort==7.*,>=7.1.1', 'pyfastx==0.*,>=0.8.3', 'pysam==0.*,>=0.16.0'
     ],
     extras_require={
         "dev": [
