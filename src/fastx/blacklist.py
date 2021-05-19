@@ -28,6 +28,7 @@ def load_whitelist(zmw_lst, blacklist_set):
 
 
 def load_seqfile(infile):
+    seqfile = None
     fxifile = infile = ".fxi"
     if os.path.exists(fxifile) and infile.endswith(FASTA_SUFFIX):
         seqfile = pyfastx.Fasta(infile, build_index=False)
