@@ -34,6 +34,6 @@ def fastq_length(infile, outfile):
 
 def seq_length(infile, outfile):
     if infile.endswith((".fa", ".fa.gz", ".fasta", ".fasta.gz")):
-        fasta_length(fasta_length)
+        fasta_length(infile, outfile)
     elif infile.endswith((".fq", ".fq.gz", ".fastq", ".fastq.gz")):
         fastq_length(infile, outfile)
