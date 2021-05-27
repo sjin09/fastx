@@ -19,11 +19,10 @@ from fastx.fastqc import seq_fastqc
 from fastx.tricounts import tricounts
 from fastx.parse_args import parse_args
 from fastx.statistics import seq_statistics
-from fastx.blacklist import filter_blacklist
-from fastx.util import fasta2fastq, fastq2fasta
+from fastx.util import fasta2fastq, fastq2fasta, filter_blacklist
 
 # global
-infile_suffix = (
+INFILE_SUFFIX = (
     ".fa",
     ".fq",
     ".fa.gz",
@@ -73,7 +72,7 @@ def main():
     if not os.path.exists(os.path.abspath(options.input)):
         logging.warning("Sequence file is missing")
         sys.exit(0)
-    elif not options.input.endswith(infile_suffix):
+    elif not options.input.endswith(INFILE_SUFFIX):
         logging.warning("fastx does not support the provided input file")
         sys.exit(0)
     else:
