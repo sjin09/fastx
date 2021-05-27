@@ -1,6 +1,7 @@
 ## modules
-import gzip
 import os
+import gzip
+import pyfastx
 from Bio import SeqIO
 from collections import defaultdict
 
@@ -16,7 +17,7 @@ INFILE_SUFFIX = (
     ".fastq.gz",
 )
 FASTA_SUFFIX = (".fa", ".fa.gz", ".fasta", ".fasta.gz")
-
+FASTQ_SUFFIX = (".fa", ".fq.gz", ".fastq", ".fastq.gz")
 
 class NestedDefaultDict(defaultdict):
     def __init__(self, *args, **kwargs):
