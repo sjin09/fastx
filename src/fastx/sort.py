@@ -5,10 +5,12 @@ from Bio import SeqIO
 from collections import defaultdict
 from fastx.util import chunkstring
 
+
 def write_fasta(seq, seq_id, outfile):
     outfile.write(">{}\n".format(seq_id))
     for chunk in chunkstring(seq):
         outfile.write("{}\n".format(chunk))
+
 
 def fasta_sort(infile, outfile):
     counter = 0
@@ -30,11 +32,11 @@ def fasta_sort(infile, outfile):
         if k:
             sorted_lst = list(sorted_keys)
             for seq_id in sorted_lst:
-                write_fasta(seq_hash[seq_id], seq_id, outfile) 
+                write_fasta(seq_hash[seq_id], seq_id, outfile)
         else:
             pseudomolecule_lst = []
             contig_scaffold_lst = []
-            unlocalised_unplaced_lst =[] 
+            unlocalised_unplaced_lst = []
             for seq_id in sorted_keys:
                 if seq_id.startswith(("chr", "SUPER")):
                     pseudomolecule_lst.append(seq_id)
@@ -46,7 +48,9 @@ def fasta_sort(infile, outfile):
             pseudomolecule_lst = natsort.natsorted(pseudomolecule_lst)
             contig_scaffold_lst = natsort.natsorted(contig_scaffold_lst)
             unlocalised_unplaced_lst = natsort.natsorted(unlocalised_unplaced_lst)
-            sorted_lst = pseudomolecule_lst + contig_scaffold_lst + unlocalised_unplaced_lst
+            sorted_lst = (
+                pseudomolecule_lst + contig_scaffold_lst + unlocalised_unplaced_lst
+            )
             for seq_id in sorted_lst:
                 write_fasta(seq_hash[seq_id], seq_id, outfile)
     else:

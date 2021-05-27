@@ -91,3 +91,4 @@ def seq_fastqc(infile):
         fastqc(infile, prefix)
     else:
         print("fastqc does not support the provided input file")
+
