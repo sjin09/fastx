@@ -46,7 +46,7 @@ def fastq2fasta(infile, outfile):
             if k == 0:  ## header
                 seq_id = j.strip()
                 seq_id = seq_id if not isinstance(seq_id, bytes) else seq_id.decode("utf-8")
-                seq_id.replace("@", ">")
+                seq_id = seq_id.replace("@", ">")
             elif k == 1:  ## sequence
                 seq = j.strip()
                 seq = seq if not isinstance(seq, bytes) else seq.decode("utf-8")
