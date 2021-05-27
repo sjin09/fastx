@@ -1,9 +1,7 @@
 # modules
 import gzip
-
 import numpy as np
-
-from fastx.common import NestedDefaultDict
+from fastx.util import NestedDefaultDict
 
 # global
 dna = list("ATGC")
