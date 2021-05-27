@@ -2,8 +2,21 @@
 import gzip
 import os
 from Bio import SeqIO
-from Bio.Seq import Seq
 from collections import defaultdict
+
+# global
+INFILE_SUFFIX = (
+    ".fa",
+    ".fq",
+    ".fa.gz",
+    ".fq.gz",
+    ".fasta",
+    ".fastq",
+    ".fasta.gz",
+    ".fastq.gz",
+)
+FASTA_SUFFIX = (".fa", ".fa.gz", ".fasta", ".fasta.gz")
+
 
 class NestedDefaultDict(defaultdict):
     def __init__(self, *args, **kwargs):
@@ -14,9 +27,7 @@ class NestedDefaultDict(defaultdict):
 
 
 def chunkstring(string):
-    chunks = [
-        string[i : i + 60] for i in range(0, len(string), 60)
-    ]
+    chunks = [string[i : i + 60] for i in range(0, len(string), 60)]
     return chunks
 
 
@@ -45,7 +56,9 @@ def fastq2fasta(infile, outfile):
             k = i % 4
             if k == 0:  ## header
                 seq_id = j.strip()
-                seq_id = seq_id if not isinstance(seq_id, bytes) else seq_id.decode("utf-8")
+                seq_id = (
+                    seq_id if not isinstance(seq_id, bytes) else seq_id.decode("utf-8")
+                )
                 seq_id = seq_id.replace("@", ">")
             elif k == 1:  ## sequence
                 seq = j.strip()
@@ -97,7 +110,3 @@ def return_whitelist(infile, blacklist, outfile):
 
 def filter_blacklist(infile, blacklist, outfile):
     return_whitelist(infile, blacklist, outfile)
-
-
-
-
