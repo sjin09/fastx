@@ -1,7 +1,7 @@
 ## modules
 import gzip
 from Bio import SeqIO
-from fastx.common import chunkstring
+from fastx.util import chunkstring
 
 
 def fasta_head(infile, number, outfile):
