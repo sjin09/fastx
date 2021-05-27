@@ -21,11 +21,11 @@ def parse_args(program_version, arguments=sys.argv[1:]):
 
     # subcommands
     subparsers = parser.add_subparsers(dest="sub")
-
-    parser_head = subparsers.add_parser(
+    # subcommands: gap
+    parser_gap = subparsers.add_parser(
         "gap", help="returns a BED file with gap positions",
     )
-    parser_head.add_argument(
+    parser_gap.add_argument(
         "-i",
         "--input",
         type=str,
@@ -34,7 +34,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         Programs supports the following prefixes: \
         FASTA: .fa, .fa.gz, .fasta, .fasta.gz",
     )
-    parser_head.add_argument(
+    parser_gap.add_argument(
         "-o",
         "--output",
         required=True,
@@ -73,8 +73,8 @@ def parse_args(program_version, arguments=sys.argv[1:]):
     )
 
     # subcommands: sort
-    parser_statistics = subparsers.add_parser("sort", help="returns sorted sequences",)
-    parser_statistics.add_argument(
+    parser_sort = subparsers.add_parser("sort", help="returns sorted sequences",)
+    parser_sort.add_argument(
         "-i",
         "--input",
         type=str,
@@ -84,7 +84,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         FASTA: .fa, .fasta, .fa.gz \
         FASTQ: .fq, .fastq, .fq.gz",
     )
-    parser_statistics.add_argument(
+    parser_sort.add_argument(
         "-o",
         "--output",
         required=True,
@@ -113,11 +113,12 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         type=argparse.FileType("w"),
         help="FILE to return .stat file(s)",
     )
+
     # subcommands: pyfastx index
-    parser_statistics = subparsers.add_parser(
+    parser_index = subparsers.add_parser(
         "index", help="generate .fxi index files",
     )
-    parser_statistics.add_argument(
+    parser_index.add_argument(
         "-i",
         "--input",
         type=str,
@@ -127,11 +128,12 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
         FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
     )
+
     # subcommands: names
-    parser_length = subparsers.add_parser(
+    parser_names = subparsers.add_parser(
         "names", help="returns sequence id",
     )
-    parser_length.add_argument(
+    parser_names.add_argument(
         "-i",
         "--input",
         type=str,
@@ -141,18 +143,19 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
         FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
     )
-    parser_length.add_argument(
+    parser_names.add_argument(
         "-o",
         "--output",
         required=True,
         type=argparse.FileType("w"),
         help="FILE to return seq id",
     )
+    
     # subcommands: split
-    parser_statistics = subparsers.add_parser(
+    parser_split = subparsers.add_parser(
         "split", help="splits and return sequences",
     )
-    parser_statistics.add_argument(
+    parser_split.add_argument(
         "-i",
         "--input",
         type=str,
@@ -162,7 +165,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
         FASTQ: .fq, .fq.gz, .fastq, .fasta.gz",
     )
-    parser_statistics.add_argument(
+    parser_split.add_argument(
         "-d",
         "--dir",
         type=str,
@@ -191,11 +194,12 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         type=argparse.FileType("w"),
         help="FILE to return .length file(s)",
     )
+
     ## subcommands: blacklist
-    parser_length = subparsers.add_parser(
+    parser_blacklist = subparsers.add_parser(
         "blacklist", help="returns filtered.fastq based on blacklist",
     )
-    parser_length.add_argument(
+    parser_blacklist.add_argument(
         "-i",
         "--input",
         type=str,
@@ -204,22 +208,23 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         Programs supports the following prefixes: \
         FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
     )
-    parser_length.add_argument(
+    parser_blacklist.add_argument(
         "--blacklist",
         type=str,
         required=True,
         help="ZMW blacklist"
     )
-    parser_length.add_argument(
+    parser_blacklist.add_argument(
         "-o",
         "--output",
         required=True,
         type=argparse.FileType("w"),
         help="FILE to return filtered FASTQ file",
     )
+
     # subcommand: fasta2fastq
-    parser_length = subparsers.add_parser("fastqc", help="sequence quality control",)
-    parser_length.add_argument(
+    parser_fastq = subparsers.add_parser("fastqc", help="sequence quality control",)
+    parser_fastq.add_argument(
         "-i",
         "--input",
         type=str,
@@ -228,11 +233,12 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         Programs supports the following prefixes: \
         FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
     )
+
     # subcommand: fasta2fastq
-    parser_length = subparsers.add_parser(
+    parser_fasta2fastq = subparsers.add_parser(
         "fasta2fastq", help="converts FASTA to FASTQ file",
     )
-    parser_length.add_argument(
+    parser_fasta2fastq.add_argument(
         "-i",
         "--input",
         type=str,
@@ -241,18 +247,19 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         Programs supports the following prefixes: \
         FASTA: .fa, .fa.gz, .fasta, .fasta.gz",
     )
-    parser_length.add_argument(
+    parser_fasta2fastq.add_argument(
         "-o",
         "--output",
         required=True,
         type=argparse.FileType("w"),
         help="FILE to return FASTA file",
     )
+
     ## subcommands: fastq2fasta
-    parser_length = subparsers.add_parser(
+    parser_fastq2fasta = subparsers.add_parser(
         "fastq2fasta", help="converts FASTQ to FASTA file",
     )
-    parser_length.add_argument(
+    parser_fastq2fasta.add_argument(
         "-i",
         "--input",
         type=str,
@@ -261,19 +268,20 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         Programs supports the following prefixes: \
         FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
     )
-    parser_length.add_argument(
+    parser_fastq2fasta.add_argument(
         "-o",
         "--output",
         required=True,
         type=argparse.FileType("w"),
         help="FILE to return FASTA file",
     )
+
     ## subcommandS: tricounts
-    parser_length = subparsers.add_parser(
+    parser_tricounts = subparsers.add_parser(
         "tricounts",
         help="counts trinucleotide sequence contexts from FASTA and FASTQ file",
     )
-    parser_length.add_argument(
+    parser_tricounts.add_argument(
         "-i",
         "--input",
         type=str,
@@ -283,15 +291,15 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
         FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
     )
-    parser_length.add_argument(
+    parser_tricounts.add_argument(
         "-t",
         "--threshold",
         default=0,
         required=False,
         type=int,
-        help="sequence length threshold",
+        help="sequence tricounts threshold",
     )
-    parser_length.add_argument(
+    parser_tricounts.add_argument(
         "-o",
         "--output",
         required=True,
