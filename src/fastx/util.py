@@ -1,6 +1,6 @@
-## modules
 import os
 import gzip
+import natsort
 import pyfastx
 from Bio import SeqIO
 from collections import defaultdict
