@@ -15,6 +15,7 @@ from fastx.split import seq_split
 from fastx.names import seq_names
 from fastx.index import seq_index
 from fastx.length import seq_length
+from fastx.target import get_target
 from fastx.fastqc import seq_fastqc
 from fastx.tricounts import tricounts
 from fastx.parse_args import parse_args
@@ -51,6 +52,8 @@ def run_subcommands(parser, options):
         seq_index(options.input)
     elif options.sub == "length":  # return sequence id and length
         seq_length(options.input, options.output)
+    elif options.sub == "target":  # return list of contigs for somatic mutation calling
+        get_target(options.input, options.output)
     elif options.sub == "fastqc":  # fastqc
         seq_fastqc(options.input)
     elif options.sub == "blacklist":  # generate fxi index files

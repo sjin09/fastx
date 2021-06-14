@@ -94,7 +94,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
 
     # subcommands: sequence statistics
     parser_statistics = subparsers.add_parser(
-        "stat", help="reads returns sequence statistics",
+        "stat", help="reads returns sequence statistics"
     )
     parser_statistics.add_argument(
         "-i",
@@ -104,19 +104,18 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
         Programs supports the following prefixes: \
         FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
-        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz"
     )
     parser_statistics.add_argument(
         "-o",
         "--output",
         required=True,
         type=argparse.FileType("w"),
-        help="FILE to return .stat file(s)",
+        help="FILE to return .stat file(s)"
     )
-
     # subcommands: pyfastx index
     parser_index = subparsers.add_parser(
-        "index", help="generate .fxi index files",
+        "index", help="generate .fxi index files"
     )
     parser_index.add_argument(
         "-i",
@@ -126,12 +125,12 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
         Programs supports the following prefixes: \
         FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
-        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz"
     )
 
     # subcommands: names
     parser_names = subparsers.add_parser(
-        "names", help="returns sequence id",
+        "names", help="returns sequence id"
     )
     parser_names.add_argument(
         "-i",
@@ -141,19 +140,18 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
         Programs supports the following prefixes: \
         FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
-        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz"
     )
     parser_names.add_argument(
         "-o",
         "--output",
         required=True,
         type=argparse.FileType("w"),
-        help="FILE to return seq id",
+        help="FILE to return seq id"
     )
-    
     # subcommands: split
     parser_split = subparsers.add_parser(
-        "split", help="splits and return sequences",
+        "split", help="splits and return sequences"
     )
     parser_split.add_argument(
         "-i",
@@ -163,19 +161,19 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
         Programs supports the following prefixes: \
         FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
-        FASTQ: .fq, .fq.gz, .fastq, .fasta.gz",
+        FASTQ: .fq, .fq.gz, .fastq, .fasta.gz"
     )
     parser_split.add_argument(
         "-d",
         "--dir",
         type=str,
         required=True,
-        help="directory to return the split sequences",
+        help="directory to return the split sequences"
     )
 
     # subcommands: length
     parser_length = subparsers.add_parser(
-        "length", help="returns sequence id and length as tab separated value",
+        "length", help="returns sequence id and length as tab separated value"
     )
     parser_length.add_argument(
         "-i",
@@ -185,19 +183,38 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         help="FASTA, FASTQ, gzipped FASTA, or gzipped FASTQ \
         Programs supports the following prefixes: \
         FASTA: .fa, .fa.gz, .fasta, .fasta.gz \
-        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz"
     )
     parser_length.add_argument(
         "-o",
         "--output",
         required=True,
         type=argparse.FileType("w"),
-        help="FILE to return .length file(s)",
+        help="FILE to return .length file(s)"
     )
-
+    # subcommands: target
+    parser_target = subparsers.add_parser(
+        "target", help="returns target contigs for somatic mutation calling"
+    )
+    parser_target.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTA, or gzipped FASTA \
+        Programs supports the following prefixes: \
+        FASTA: .fa, .fa.gz, .fasta, .fasta.gz"
+    )
+    parser_target.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=argparse.FileType("w"),
+        help="FILE to return target contigs"
+    )
     ## subcommands: blacklist
     parser_blacklist = subparsers.add_parser(
-        "blacklist", help="returns filtered.fastq based on blacklist",
+        "blacklist", help="returns filtered.fastq based on blacklist"
     )
     parser_blacklist.add_argument(
         "-i",
@@ -206,7 +223,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         required=True,
         help="FASTQ, gzipped FASTQ \
         Programs supports the following prefixes: \
-        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz",
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz"
     )
     parser_blacklist.add_argument(
         "--blacklist",
@@ -219,7 +236,7 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         "--output",
         required=True,
         type=argparse.FileType("w"),
-        help="FILE to return filtered FASTQ file",
+        help="FILE to return filtered FASTQ file"
     )
 
     # subcommand: fasta2fastq
