@@ -91,7 +91,7 @@ def fastq_sort(infile, outfile):
 
 
 def seq_sort(infile, outfile):
-    if infile.endswith((".fa", ".fa.gz", ".fasta")):
+    if infile.endswith((".fa", ".fa.gz", ".fasta", ".fasta.gz")):
         fasta_sort(infile, outfile)
-    elif infile.endswith((".fq", ".fq.gz", ".fastq")):
+    elif infile.endswith((".fq", ".fq.gz", ".fastq", ".fastq.gz")):
         fastq_sort(infile, outfile)
