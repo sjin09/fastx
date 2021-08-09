@@ -38,7 +38,7 @@ def fasta_sort(infile, outfile):
             contig_scaffold_lst = []
             unlocalised_unplaced_lst = []
             for seq_id in sorted_keys:
-                if seq_id.startswith(("chr", "SUPER")):
+                if seq_id.startswith(("chr", "SUPER", "LR")):
                     pseudomolecule_lst.append(seq_id)
                 else:
                     if seq_id.startswith("S"):
@@ -52,7 +52,7 @@ def fasta_sort(infile, outfile):
                 pseudomolecule_lst + contig_scaffold_lst + unlocalised_unplaced_lst
             )
             for seq_id in sorted_lst:
-                write_fasta(seq_hash[seq_id], seq_id, outfile)
+                write_fasta(seq_hash[seq_id].upper(), seq_id, outfile)
     else:
         print("Sequences do not have unique IDs")
 
