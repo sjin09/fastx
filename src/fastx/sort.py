@@ -20,9 +20,6 @@ def fasta_sort(infile, outfile):
         if infile.endswith((".fa", ".fasta"))
         else SeqIO.parse(gzip.open(infile, "rt"), "fasta")
     )
-    print(fasta)
-    for line in fasta:
-        print(line)
     for seq in fasta:
         seq_hash[seq.id] = seq.seq  # assumes
         counter += 1
