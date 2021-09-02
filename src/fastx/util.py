@@ -99,7 +99,7 @@ def load_seqfile(infile):
     return seqfile
 
 
-def return_whitelist(infile, blacklist, outfile):
+def return_blacklist(infile, blacklist, outfile):
     blacklist_set = set(load_blacklist(blacklist))
     seqfile = load_seqfile(infile)
     zmw_lst = seqfile.keys()
@@ -109,5 +109,9 @@ def return_whitelist(infile, blacklist, outfile):
         outfile.write("{}".format(read.raw))
 
 
-def filter_blacklist(infile, blacklist, outfile):
-    return_whitelist(infile, blacklist, outfile)
+def return_whitelist(infile, whitelist, outfile):
+    seqfile = load_seqfile(infile)
+    whitelist_lst = natsort.natsorted(list(set([line.strip() for line in open(whitelist).readlines()])))
+    for idx in whitelist_lst:
+        outfile.write("{}".format(seqfile[idx].raw))
+

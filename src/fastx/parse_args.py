@@ -238,6 +238,32 @@ def parse_args(program_version, arguments=sys.argv[1:]):
         type=argparse.FileType("w"),
         help="FILE to return filtered FASTQ file"
     )
+    parser_blacklist = subparsers.add_parser(
+        "whitelist", help="returns whitelisted fastq"
+    )
+    parser_blacklist.add_argument(
+        "-i",
+        "--input",
+        type=str,
+        required=True,
+        help="FASTQ, gzipped FASTQ \
+        Programs supports the following prefixes: \
+        FASTQ: .fq, .fq.gz, .fastq, .fastq.gz"
+    )
+    parser_blacklist.add_argument(
+        "--whitelist",
+        type=str,
+        required=True,
+        help="ZMW whitelist"
+    )
+    parser_blacklist.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=argparse.FileType("w"),
+        help="FILE to return filtered FASTQ file"
+    )
+
 
     # subcommand: fasta2fastq
     parser_fastq = subparsers.add_parser("fastqc", help="sequence quality control",)

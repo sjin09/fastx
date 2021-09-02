@@ -20,7 +20,7 @@ from fastx.fastqc import seq_fastqc
 from fastx.tricounts import tricounts
 from fastx.parse_args import parse_args
 from fastx.statistics import seq_statistics
-from fastx.util import fasta2fastq, fastq2fasta, filter_blacklist
+from fastx.util import fasta2fastq, fastq2fasta, return_blacklist, return_whitelist
 
 # global
 INFILE_SUFFIX = (
@@ -57,7 +57,9 @@ def run_subcommands(parser, options):
     elif options.sub == "fastqc":  # fastqc
         seq_fastqc(options.input)
     elif options.sub == "blacklist":  # generate fxi index files
-        filter_blacklist(options.input, options.blacklist, options.output)
+        return_blacklist(options.input, options.blacklist, options.output)
+    elif options.sub == "whitelist":  # generate fxi index files
+        return_whitelist(options.input, options.whitelist, options.output)
     elif options.sub == "fasta2fastq":  # fasta2fastq
         fasta2fastq(options.input, options.output)
     elif options.sub == "fastq2fasta":  # fastq2fasta
